@@ -39,12 +39,12 @@ class BookDetailsViewModel:  UIViewModelType{
     let result = modelSubject
       .flatMapLatest { (book) -> Observable<[BookSectionModel]> in
         let results:  [BookSectionModel] = [
-          .ImageProvidableSection(
-            items: [.ImageSectionItem(image: ImageBook(image: book.thumbnail))]),
-          .InfoSection(
-            items: [.InfoSectionItem(info: InfoBook(title: book.title, subtitle: book.subtitle, authors: book.authors ?? []))]),
-          .DescriptionSection(
-                              items: [.DescriptionSectionItem(bookDescription: book.textSnippet)])]
+          .imageProvidableSection(
+            items: [.imageSectionItem(image: ImageBook(image: book.thumbnail))]),
+          .infoSection(
+            items: [.infoSectionItem(info: InfoBook(title: book.title, subtitle: book.subtitle, authors: book.authors ?? []))]),
+          .descriptionSection(
+                              items: [.descriptionSectionItem(bookDescription: book.textSnippet)])]
         return Observable.just(results)
     }
     
@@ -59,15 +59,15 @@ enum SectionIdentifier: String{
   case descriptionCellIdentifier
 }
 enum BookSectionModel {
-  case ImageProvidableSection(items: [SectionItem])
-  case InfoSection(items: [SectionItem])
-  case DescriptionSection(items: [SectionItem])
+  case imageProvidableSection(items: [SectionItem])
+  case infoSection(items: [SectionItem])
+  case descriptionSection(items: [SectionItem])
 }
 
 enum SectionItem{
-  case ImageSectionItem(image: ImageBook)
-  case InfoSectionItem(info: InfoBook)
-  case DescriptionSectionItem(bookDescription: String?)
+  case imageSectionItem(image: ImageBook)
+  case infoSectionItem(info: InfoBook)
+  case descriptionSectionItem(bookDescription: String?)
 }
 
 struct InfoBook{
@@ -87,23 +87,23 @@ extension BookSectionModel: SectionModelType {
   
   var items: [SectionItem] {
     switch  self {
-    case .ImageProvidableSection(items: let items):
+    case .imageProvidableSection(items: let items):
       return items.map {$0}
-    case .InfoSection(items: let items):
+    case .infoSection(items: let items):
       return items.map {$0}
-    case .DescriptionSection(items: let items):
+    case .descriptionSection(items: let items):
       return items.map {$0}
     }
   }
   
   init(original: BookSectionModel, items: [Item]) {
     switch original {
-    case let .ImageProvidableSection(items: items):
-      self = .ImageProvidableSection(items: items)
-    case let .InfoSection(items):
-      self = .InfoSection(items: items)
-    case let .DescriptionSection(items: items):
-      self = .DescriptionSection(items: items)
+    case let .imageProvidableSection(items: items):
+      self = .imageProvidableSection(items: items)
+    case let .infoSection(items):
+      self = .infoSection(items: items)
+    case let .descriptionSection(items: items):
+      self = .descriptionSection(items: items)
     }
   }
 }

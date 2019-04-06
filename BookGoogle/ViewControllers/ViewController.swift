@@ -54,7 +54,7 @@ class ViewController: UIViewController {
       .disposed(by: disposeBag)
     searchBar.rx.text.orEmpty.bind(to: viewModel.input.searchText).disposed(by: disposeBag)
     searchBar.rx.textDidEndEditing.bind(to:viewModel.input.search).disposed(by: disposeBag)
-    tableView.rx_reachedBottom.bind(to: viewModel.input.nextPage).disposed(by: disposeBag)
+    tableView.rxReachedBottom.bind(to: viewModel.input.nextPage).disposed(by: disposeBag)
     self.dataSource()
   }
   

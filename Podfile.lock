@@ -20,6 +20,7 @@ PODS:
     - RxCocoa (~> 4.0)
     - RxSwiftExt/Core
   - SnapKit (4.2.0)
+  - SwiftLint (0.31.0)
   - SwiftyJSON (4.2.0)
 
 DEPENDENCIES:
@@ -30,6 +31,7 @@ DEPENDENCIES:
   - RxSwift
   - RxSwiftExt
   - SnapKit
+  - SwiftLint
   - SwiftyJSON
 
 SPEC REPOS:
@@ -43,6 +45,7 @@ SPEC REPOS:
     - RxSwift
     - RxSwiftExt
     - SnapKit
+    - SwiftLint
     - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -55,8 +58,9 @@ SPEC CHECKSUMS:
   RxSwift: 74c29b693c8e42b0f64400e8b06564575742d649
   RxSwiftExt: 01f8ecbeeb355698e9c75365ebe908b00dacf45d
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  SwiftLint: 7a0227733d786395817373b2d0ca799fd0093ff3
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: 3b339a333e897a4e368d9c68975335ccc62fb8c5
+PODFILE CHECKSUM: 25c5b196f313085005b23eb972ae9f6b9836ced6
 
 COCOAPODS: 1.5.3

@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 
 extension UIScrollView {
-  public var rx_reachedBottom: Observable<Void> {
+  public var rxReachedBottom: Observable<Void> {
     return self.rx.contentOffset
       .map { contentOffset in
         var responder: UIResponder = self

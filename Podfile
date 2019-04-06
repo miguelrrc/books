@@ -14,6 +14,7 @@ target 'BookGoogle' do
   pod 'Alamofire'
   pod 'SwiftyJSON'
   pod 'Kingfisher', '~> 5.0'
+  pod 'SwiftLint'
   target 'BookGoogleTests' do
     inherit! :search_paths
     # Pods for testing

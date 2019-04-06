@@ -229,6 +229,7 @@
 				EB3A394F2254CEF700DDD583 /* Frameworks */,
 				EB3A39502254CEF700DDD583 /* Resources */,
 				2C6BD31CED2B0ABDDEF9B642 /* [CP] Embed Pods Frameworks */,
+				EBE6B66E22587896009D747C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -377,6 +378,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BookGoogle/Pods-BookGoogle-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		EBE6B66E22587896009D747C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 		EF7DA08C3C875DDA5AB4C80C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

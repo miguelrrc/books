@@ -64,11 +64,13 @@ struct APIService: APIServiceProtocol {
     return Observable.create { observer in
       var comps = URLComponents(string: address.urlV1.absoluteString)!
       comps.queryItems = parameters.map(URLQueryItem.init)
-      let url = try! comps.asURL()
-      
-      var urlRequest =  URLRequest(url:url)
+      guard let url = try? comps.asURL() else{
+        return Disposables.create {
+          //empty
+        }
+      }
+      var urlRequest =  URLRequest(url: url)
       urlRequest.httpMethod = method.rawValue
-      
       let request = Alamofire.request(urlRequest)
       request.responseJSON { response in
         guard response.error == nil, let data = response.data,

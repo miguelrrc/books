@@ -76,17 +76,25 @@ extension BookDetailsViewController {
     return RxCollectionViewSectionedReloadDataSource<BookSectionModel>(
       configureCell: { (dataSource, collection, idxPath, _) in
         switch dataSource[idxPath] {
-        case let .ImageSectionItem(imageBook):
-          let cell: ImageCollectionViewCell = collection.dequeueReusableCell( withReuseIdentifier: SectionIdentifier.imageCellIdentifier.rawValue, for: idxPath) as! ImageCollectionViewCell
+        case let .imageSectionItem(imageBook):
+          guard let cell: ImageCollectionViewCell = collection.dequeueReusableCell( withReuseIdentifier: SectionIdentifier.imageCellIdentifier.rawValue, for: idxPath) as? ImageCollectionViewCell else{
+            return UICollectionViewCell()
+          }
           cell.imageBook = imageBook
 
           return cell
-        case let .InfoSectionItem(infoBook):
-          let cell: InfoCollectionViewCell = collection.dequeueReusableCell( withReuseIdentifier: SectionIdentifier.infoCellIdentifier.rawValue, for: idxPath) as! InfoCollectionViewCell
+        case let .infoSectionItem(infoBook):
+          guard let cell: InfoCollectionViewCell = collection.dequeueReusableCell( withReuseIdentifier: SectionIdentifier.infoCellIdentifier.rawValue, for: idxPath) as? InfoCollectionViewCell  else{
+            return UICollectionViewCell()
+          }
           cell.infoBook = infoBook
           return cell
-        case let .DescriptionSectionItem(item):
-          let cell: DescriptionCollectionViewCell = collection.dequeueReusableCell( withReuseIdentifier: SectionIdentifier.descriptionCellIdentifier.rawValue, for: idxPath) as! DescriptionCollectionViewCell
+        case let .descriptionSectionItem(item):
+          guard let cell: DescriptionCollectionViewCell = collection
+            .dequeueReusableCell( withReuseIdentifier: SectionIdentifier
+              .descriptionCellIdentifier.rawValue, for: idxPath) as? DescriptionCollectionViewCell  else{
+            return UICollectionViewCell()
+          }
           cell.descriptionString = item
           return cell
         }
