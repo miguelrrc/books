@@ -18,56 +18,65 @@ enum BookTableViewCellType {
 protocol UIViewModelType {
   associatedtype Input
   associatedtype Output
-  
+
   var input: Input { get }
   var output: Output { get }
-  
+
 }
-class BookViewModel:  UIViewModelType{
+
+class BookViewModel: UIViewModelType {
   let input: Input
   let output: Output
-  let api: APIServiceProtocol.Type
-  let disposeBag = DisposeBag()
-  var page = 0
+
+  private let api: APIServiceProtocol.Type
+  private let disposeBag = DisposeBag()
+  private var page = 0
+  private let itemsPerPage = 40
+  private let searchTextSubject = ReplaySubject<String>.create(bufferSize: 1)
+  private let nextPageSubject = PublishSubject<Void>()
+  private let searchSubject = PublishSubject<Void>()
+
   struct Input {
     let searchText: AnyObserver<String>
     let search: AnyObserver<Void>
     var nextPage: AnyObserver<Void>
-    
   }
-  //MARK: OUTPUT
-  struct Output{
+
+  struct Output {
     var books: Driver<[BookTableViewCellType]>
-//    let signingIn: Driver<Bool>
-    
   }
-  
-  private let searchTextSubject = ReplaySubject<String>.create(bufferSize: 1)
-  private let nextPageSubject = PublishSubject<Void>()
-  private let searchSubject = PublishSubject<Void>()
-  private let loadInProgress = BehaviorRelay(value: false)
-  
-  init(api:APIServiceProtocol.Type = APIService.self){
+
+  init(api: APIServiceProtocol.Type = APIService.self) {
     self.api = APIService.self
     let booksRelay: BehaviorRelay<[BookTableViewCellType]> = BehaviorRelay.init(value: [])
 
-    self.input = Input(searchText: searchTextSubject.asObserver(), search: searchSubject.asObserver(), nextPage: nextPageSubject.asObserver())
+    self.input = Input(
+      searchText: searchTextSubject.asObserver(),
+      search: searchSubject.asObserver(),
+      nextPage: nextPageSubject.asObserver())
     self.output = Output(books: booksRelay.asDriver(onErrorJustReturn: []))
-    
+
     let resultsFirstPage = searchSubject
       .withLatestFrom(searchTextSubject)
       .distinctUntilChanged()
-      .flatMap { text -> Observable<[BookModel]> in
-        self.page = 0
-        return api.findBooks(with: text, page: self.page)
+      .flatMap { [weak self] text -> Observable<[BookModel]> in
+        guard let strongSelf = self else {
+          return Observable.just([])
+        }
+        strongSelf.page = 0
+        return api.findBooks(with: text, maxResults: strongSelf.itemsPerPage, page: strongSelf.page)
     }
-    
+
     let resultNextPage = nextPageSubject
       .withLatestFrom(searchTextSubject)
-      .flatMapLatest { text -> Observable<[BookModel]> in
-        self.page += 1
-        return api.findBooks(with: text, page: self.page)
+      .flatMapLatest { [weak self] text -> Observable<[BookModel]> in
+        guard let strongSelf = self else {
+          return Observable.just([])
+        }
+        strongSelf.page += 1
+        return api.findBooks(with: text, maxResults: strongSelf.itemsPerPage, page: strongSelf.page)
     }
+
     resultsFirstPage.subscribe(onNext: { (newBooks) in
       let books: [BookTableViewCellType] = newBooks.compactMap { .normal(cellViewModel: $0 as BookModel)}
        booksRelay.accept(books)
@@ -76,6 +85,5 @@ class BookViewModel:  UIViewModelType{
       let books: [BookTableViewCellType] = newBooks.compactMap { .normal(cellViewModel: $0 as BookModel)}
       booksRelay.accept(booksRelay.value + books)
     }).disposed(by: disposeBag)
-    
   }
 }

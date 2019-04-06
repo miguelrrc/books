@@ -9,10 +9,10 @@
 import UIKit
 
 class ImageCollectionViewCell: UICollectionViewCell {
-  let imageView = UIImageView()
+  private let imageView = UIImageView()
   var imageBook: ImageBook? {
-    didSet{
-      if let image = imageBook?.image, let url = URL(string:image) {
+    didSet {
+      if let image = imageBook?.image, let url = URL(string: image) {
         self.imageView.kf.setImage(with: url)
       }
     }
@@ -21,13 +21,11 @@ class ImageCollectionViewCell: UICollectionViewCell {
     super.init(frame: frame)
     self.addSubview(imageView)
     imageView.snp.makeConstraints { (make) -> Void in
-      make.height.equalTo(self)
       make.center.equalTo(self.center)
     }
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 }
-

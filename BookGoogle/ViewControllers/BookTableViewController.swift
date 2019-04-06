@@ -12,28 +12,38 @@ import SnapKit
 import RxCocoa
 import Kingfisher
 
-class ViewController: UIViewController {
-  
-  private let tableView = UITableView()
-  private let searchBar = UISearchBar()
+class BookTableViewController: UIViewController {
+
+  private lazy var tableView: UITableView = {
+    let tableView = UITableView()
+    tableView.estimatedRowHeight = 40
+    tableView.rowHeight = UITableView.automaticDimension
+    tableView.register(BookTableViewCell.self, forCellReuseIdentifier: "Cell")
+    return tableView
+  }()
+
+  private lazy var searchBar: UISearchBar = {
+    let searchBar = UISearchBar()
+    searchBar.placeholder = "Books and more books!"
+    searchBar.delegate = nil
+    searchBar.sizeToFit()
+    searchBar.showsScopeBar = true
+    return searchBar
+  }()
   private let loadingView = UIView()
   private let disposeBag = DisposeBag()
-  let viewModel = BookViewModel()
-  
+  private let viewModel = BookViewModel()
+  private let heightRow: CGFloat = 40
+
   override func viewDidLoad() {
     super.viewDidLoad()
     initUI()
     setupViewModel()
   }
-  
-  private func initUI(){
+
+  private func initUI() {
     self.view.addSubview(tableView)
-    searchBar.placeholder = "Books and more books!"
-    
-    searchBar.delegate = nil
-    searchBar.sizeToFit()
-    searchBar.showsScopeBar = true
-    
+
     tableView.snp.makeConstraints { make in
       make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin)
       make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin)
@@ -41,63 +51,60 @@ class ViewController: UIViewController {
       make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailingMargin)
     }
     tableView.tableHeaderView = searchBar
-    
-    tableView.estimatedRowHeight = 40
+
+    tableView.estimatedRowHeight = heightRow
     tableView.rowHeight = UITableView.automaticDimension
     tableView.register(BookTableViewCell.self, forCellReuseIdentifier: "Cell")
   }
-  
-  private func setupViewModel(){
+
+  private func setupViewModel() {
     Observable.merge(searchBar.rx.cancelButtonClicked.asObservable(),
                      searchBar.rx.searchButtonClicked.asObservable())
       .bind(to: resignFirstResponder)
       .disposed(by: disposeBag)
     searchBar.rx.text.orEmpty.bind(to: viewModel.input.searchText).disposed(by: disposeBag)
-    searchBar.rx.textDidEndEditing.bind(to:viewModel.input.search).disposed(by: disposeBag)
+    searchBar.rx.textDidEndEditing.bind(to: viewModel.input.search).disposed(by: disposeBag)
     tableView.rxReachedBottom.bind(to: viewModel.input.nextPage).disposed(by: disposeBag)
     self.dataSource()
   }
-  
+
   private var resignFirstResponder: AnyObserver<Void> {
-    return Binder(self) { me, _ in
-      me.searchBar.resignFirstResponder()
+    return Binder(self) { viewController, _ in
+      viewController.searchBar.resignFirstResponder()
       }.asObserver()
   }
 }
 
-extension ViewController {
-  
-  private func dataSource(){
+extension BookTableViewController {
+
+  private func dataSource() {
     viewModel.output.books
-      .drive(tableView.rx.items) { table, index, element in
-        
+      .drive(tableView.rx.items) { table, _, element in
         switch element {
-          case .normal(let viewModel):
-            guard let cell = table.dequeueReusableCell(withIdentifier: "Cell") as? BookTableViewCell else{
-              return UITableViewCell()
-            }
-            cell.viewModel = viewModel
-            return cell
-          case .empty:
-            let cell = UITableViewCell()
-            cell.isUserInteractionEnabled = false
-            cell.textLabel?.text = "No data available"
-            return cell
+        case .normal(let viewModel):
+          guard let cell = table.dequeueReusableCell(withIdentifier: "Cell") as? BookTableViewCell else {
+            return UITableViewCell()
+          }
+          cell.viewModel = viewModel
+          return cell
+        case .empty:
+          let cell = UITableViewCell()
+          cell.isUserInteractionEnabled = false
+          cell.textLabel?.text = "No data available"
+          return cell
         }
-        
       }.disposed(by: disposeBag)
-    
+
     tableView.rx.modelSelected((BookTableViewCellType.self))
       .subscribe(onNext: { element in
-        switch element{
-          case .normal(let viewModel):
-            let viewController = BookDetailsViewController(book: viewModel)
-            self.navigationController?.pushViewController(viewController, animated: true)
+        switch element {
+        case .normal(let viewModel):
+          let viewController = BookDetailsViewController(book: viewModel)
+          self.navigationController?.pushViewController(viewController, animated: true)
         case .empty:
           //Do nothing :)
           return
         }
-      
       }).disposed(by: self.disposeBag)
   }
 }

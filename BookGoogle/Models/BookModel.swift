@@ -20,7 +20,7 @@ struct BookModel {
   var averageRating: Double?
   var smallThumbnail: String?
   var thumbnail: String?
-  
+
   init(title: String?,
        authors: [String]?,
        subtitle: String?,
@@ -38,8 +38,7 @@ struct BookModel {
     self.smallThumbnail = smallThumbnail
     self.thumbnail = thumbnail
   }
-  
-  
+
   static func parse(fromJSON json: JSON) -> T {
     var books = [BookModel]()
     guard let items = json["items"].array else { return books }

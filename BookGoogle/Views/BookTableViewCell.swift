@@ -8,31 +8,32 @@
 
 import UIKit
 import SnapKit
-    
+
 class BookTableViewCell: UITableViewCell {
-  let titleLabel = UILabel()
-  let subtitleLabel = UILabel()
-  let bookImageView = UIImageView()
-  let authorLabel = UILabel()
-  
+  private let titleLabel = UILabel()
+  private let subtitleLabel = UILabel()
+  private let bookImageView = UIImageView()
+  private let authorLabel = UILabel()
+
   var viewModel: BookModel? {
-    didSet{
+    didSet {
       titleLabel.text = viewModel?.title
       subtitleLabel.text = viewModel?.subtitle
-      if let thumbnail = viewModel?.thumbnail, let url = URL(string:thumbnail) {
+      if let smallThumbnail = viewModel?.smallThumbnail, let url = URL(string: smallThumbnail) {
         bookImageView.kf.setImage(with: url)
+        bookImageView.contentMode = .scaleAspectFit
       }
     }
   }
-  
+
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-    
+
     self.addSubview(bookImageView)
     bookImageView.snp.makeConstraints { (make) -> Void in
-      make.width.equalTo(44)
       make.height.equalTo(44)
-      make.centerY.equalTo(self.snp.centerY)
+      make.width.equalTo(30)
+      make.left.equalTo(self.snp.left).offset(10)
     }
     titleLabel.font = UIFont.systemFont(ofSize: 14)
     self.addSubview(titleLabel)
@@ -40,24 +41,25 @@ class BookTableViewCell: UITableViewCell {
       make.height.equalTo(20)
       make.top.equalTo(self.snp.top).offset(5)
       make.left.equalTo(self.bookImageView.snp.right).offset(10)
+//      make.right.equalTo(self.snp.right).offset(-10)
     }
-    
+
     subtitleLabel.font = UIFont.systemFont(ofSize: 10)
     self.addSubview(subtitleLabel)
     subtitleLabel.snp.makeConstraints { (make) -> Void in
       make.height.equalTo(20)
       make.top.equalTo(self.titleLabel.snp.bottom).offset(2)
       make.left.equalTo(self.titleLabel.snp.left)
+      make.right.equalTo(self.snp.right).offset(-10)
     }
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   override func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
   }
-  
-}
 
+}

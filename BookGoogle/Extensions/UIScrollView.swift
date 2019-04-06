@@ -14,7 +14,7 @@ extension UIScrollView {
     return self.rx.contentOffset
       .map { contentOffset in
         var responder: UIResponder = self
-        var viewController: UIViewController? = nil
+        var viewController: UIViewController?
         while let next = responder.next {
           viewController = next as? UIViewController
           if viewController != nil {

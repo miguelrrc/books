@@ -13,19 +13,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
-
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    
+
     self.window = UIWindow(frame: UIScreen.main.bounds)
-    
-    let bookViewController:ViewController = ViewController()
-    let navigationController:UINavigationController = UINavigationController(rootViewController: bookViewController);
-    
-    self.window!.rootViewController = navigationController;
-    
+
+    let bookViewController: BookTableViewController = BookTableViewController()
+    let navigationController: UINavigationController = UINavigationController(rootViewController: bookViewController)
+
+    self.window!.rootViewController = navigationController
+
     self.window!.backgroundColor = UIColor.white
     self.window!.makeKeyAndVisible()
-    
+
     return true
   }
 

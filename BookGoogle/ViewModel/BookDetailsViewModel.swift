@@ -12,70 +12,76 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 
-struct ImageBook{
+struct ImageBook {
   let image: String?
-  init(image: String?)
-  {
+  init(image: String?) {
     self.image = image
   }
 }
 
-class BookDetailsViewModel:  UIViewModelType{
-  
+class BookDetailsViewModel: UIViewModelType {
+
   let input: Input
   let output: Output
   let disposeBag = DisposeBag()
-  
+
   struct Input {
     let book: AnyObserver<BookModel>
   }
-  //MARK: OUTPUT
-  struct Output{
+
+  struct Output {
     var sections: Driver<[BookSectionModel]>
   }
+
   private let modelSubject = ReplaySubject<BookModel>.create(bufferSize: 1)
-  
-  init(){
+
+  init() {
     let result = modelSubject
       .flatMapLatest { (book) -> Observable<[BookSectionModel]> in
-        let results:  [BookSectionModel] = [
+        let results: [BookSectionModel] = [
           .imageProvidableSection(
             items: [.imageSectionItem(image: ImageBook(image: book.thumbnail))]),
           .infoSection(
-            items: [.infoSectionItem(info: InfoBook(title: book.title, subtitle: book.subtitle, authors: book.authors ?? []))]),
+            items: [
+              .infoSectionItem(
+                info: InfoBook(
+                  title: book.title,
+                  subtitle: book.subtitle,
+                  authors: book.authors ?? []))]),
           .descriptionSection(
-                              items: [.descriptionSectionItem(bookDescription: book.textSnippet)])]
+            items: [.descriptionSectionItem(bookDescription: book.textSnippet)])]
         return Observable.just(results)
     }
-    
+
     self.input = Input(book: modelSubject.asObserver())
     self.output = Output(sections: result.asDriver(onErrorJustReturn: []))
   }
 }
 
-enum SectionIdentifier: String{
+enum SectionIdentifier: String {
   case imageCellIdentifier
   case infoCellIdentifier
   case descriptionCellIdentifier
 }
+
 enum BookSectionModel {
   case imageProvidableSection(items: [SectionItem])
   case infoSection(items: [SectionItem])
   case descriptionSection(items: [SectionItem])
 }
 
-enum SectionItem{
+enum SectionItem {
   case imageSectionItem(image: ImageBook)
   case infoSectionItem(info: InfoBook)
   case descriptionSectionItem(bookDescription: String?)
 }
 
-struct InfoBook{
+struct InfoBook {
   let title: String?
   let subtitle: String?
   let authors: [String]
-  
-  init(title: String?, subtitle: String?, authors: [String]){
+
+  init(title: String?, subtitle: String?, authors: [String]) {
     self.title = title
     self.subtitle = subtitle
     self.authors = authors
@@ -84,7 +90,7 @@ struct InfoBook{
 
 extension BookSectionModel: SectionModelType {
   typealias Item = SectionItem
-  
+
   var items: [SectionItem] {
     switch  self {
     case .imageProvidableSection(items: let items):
@@ -95,7 +101,7 @@ extension BookSectionModel: SectionModelType {
       return items.map {$0}
     }
   }
-  
+
   init(original: BookSectionModel, items: [Item]) {
     switch original {
     case let .imageProvidableSection(items: items):
@@ -107,6 +113,3 @@ extension BookSectionModel: SectionModelType {
     }
   }
 }
-
-
-
