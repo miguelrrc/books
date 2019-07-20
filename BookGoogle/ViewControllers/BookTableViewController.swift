@@ -32,6 +32,7 @@ class BookTableViewController: UIViewController {
   }()
   private let loadingView = UIView()
   private let disposeBag = DisposeBag()
+
   private let viewModel = BookViewModel()
   private let heightRow: CGFloat = 40
 

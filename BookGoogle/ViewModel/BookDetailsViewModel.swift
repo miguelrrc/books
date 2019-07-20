@@ -26,7 +26,7 @@ class BookDetailsViewModel: UIViewModelType {
   let disposeBag = DisposeBag()
 
   struct Input {
-    let book: AnyObserver<BookModel>
+    let book: ReplaySubject<BookModel>
   }
 
   struct Output {
@@ -91,7 +91,7 @@ struct InfoBook {
 extension BookSectionModel: SectionModelType {
   typealias Item = SectionItem
 
-  var items: [SectionItem] {
+  var items: [Item] {
     switch  self {
     case .imageProvidableSection(items: let items):
       return items.map {$0}

@@ -3,17 +3,27 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A9D3DAAB22E0599D00D19106 /* BookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB40234D22572B0E00A70F1F /* BookViewModel.swift */; };
+		A9D3DAAC22E05AA800D19106 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3A39792254D41100DDD583 /* APIService.swift */; };
+		A9D3DAAD22E05BDD00D19106 /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3A39762254D38400DDD583 /* BookModel.swift */; };
+		A9D3DAAF22E05DA000D19106 /* BookModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D3DAAE22E05DA000D19106 /* BookModelTests.swift */; };
+		A9D3DAB122E05F7300D19106 /* Fixtures in Resources */ = {isa = PBXBuildFile; fileRef = A9D3DAB022E05F7300D19106 /* Fixtures */; };
+		A9D3DAB622E065C200D19106 /* books.json in Resources */ = {isa = PBXBuildFile; fileRef = A9D3DAB522E065C200D19106 /* books.json */; };
+		A9D3DAB822E06A8800D19106 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D3DAB722E06A8800D19106 /* TestUtils.swift */; };
+		A9D3DAB922E1FD6800D19106 /* BookDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE6B66A2257AF31009D747C /* BookDetailsViewModel.swift */; };
+		A9D3DAC522E2FD3F00D19106 /* BookGoogleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D3DAC422E2FD3F00D19106 /* BookGoogleUITests.swift */; };
+		A9FE774022E03E0400DFEBFE /* BookViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FE773F22E03E0400DFEBFE /* BookViewModelTests.swift */; };
 		BEB7CF8A79712F76216BBEA9 /* Pods_BookGoogle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37027C148993A5FF6D24DE38 /* Pods_BookGoogle.framework */; };
 		CF97AAF02DCA7CD9E4C2C98A /* Pods_BookGoogleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AD99188CED6206FB964864 /* Pods_BookGoogleTests.framework */; };
 		EB3A39562254CEF700DDD583 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3A39552254CEF700DDD583 /* AppDelegate.swift */; };
 		EB3A39582254CEF700DDD583 /* BookTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3A39572254CEF700DDD583 /* BookTableViewController.swift */; };
 		EB3A395D2254CEF900DDD583 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB3A395C2254CEF900DDD583 /* Assets.xcassets */; };
 		EB3A39602254CEF900DDD583 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB3A395E2254CEF900DDD583 /* LaunchScreen.storyboard */; };
-		EB3A396B2254CEF900DDD583 /* BookGoogleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3A396A2254CEF900DDD583 /* BookGoogleTests.swift */; };
+		EB3A396B2254CEF900DDD583 /* BookDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3A396A2254CEF900DDD583 /* BookDetailsViewModelTests.swift */; };
 		EB3A39772254D38400DDD583 /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3A39762254D38400DDD583 /* BookModel.swift */; };
 		EB3A397A2254D41100DDD583 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3A39792254D41100DDD583 /* APIService.swift */; };
 		EB3A632B225520FF00DDD583 /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3A632A225520FF00DDD583 /* BookTableViewCell.swift */; };
@@ -29,6 +39,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A9D3DAC722E2FD3F00D19106 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EB3A394A2254CEF700DDD583 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EB3A39512254CEF700DDD583;
+			remoteInfo = BookGoogle;
+		};
 		EB3A39672254CEF900DDD583 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EB3A394A2254CEF700DDD583 /* Project object */;
@@ -44,6 +61,14 @@
 		507CCC85211B0EBEB1784499 /* Pods-BookGoogleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookGoogleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BookGoogleTests/Pods-BookGoogleTests.release.xcconfig"; sourceTree = "<group>"; };
 		5C628C0BE460CE6EF43019D1 /* Pods-BookGoogle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookGoogle.release.xcconfig"; path = "Pods/Target Support Files/Pods-BookGoogle/Pods-BookGoogle.release.xcconfig"; sourceTree = "<group>"; };
 		800514D8654538F90E84268E /* Pods-BookGoogle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookGoogle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BookGoogle/Pods-BookGoogle.debug.xcconfig"; sourceTree = "<group>"; };
+		A9D3DAAE22E05DA000D19106 /* BookModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModelTests.swift; sourceTree = "<group>"; };
+		A9D3DAB022E05F7300D19106 /* Fixtures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fixtures; sourceTree = "<group>"; };
+		A9D3DAB522E065C200D19106 /* books.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = books.json; path = BookGoogleTests/Fixtures/books.json; sourceTree = "<group>"; };
+		A9D3DAB722E06A8800D19106 /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
+		A9D3DAC222E2FD3F00D19106 /* BookGoogleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookGoogleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9D3DAC422E2FD3F00D19106 /* BookGoogleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookGoogleUITests.swift; sourceTree = "<group>"; };
+		A9D3DAC622E2FD3F00D19106 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A9FE773F22E03E0400DFEBFE /* BookViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewModelTests.swift; sourceTree = "<group>"; };
 		AD1FCE64AFF27F366F146F7F /* Pods-BookGoogleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookGoogleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BookGoogleTests/Pods-BookGoogleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EB3A39522254CEF700DDD583 /* BookGoogle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookGoogle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB3A39552254CEF700DDD583 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -52,7 +77,7 @@
 		EB3A395F2254CEF900DDD583 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EB3A39612254CEF900DDD583 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB3A39662254CEF900DDD583 /* BookGoogleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookGoogleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EB3A396A2254CEF900DDD583 /* BookGoogleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookGoogleTests.swift; sourceTree = "<group>"; };
+		EB3A396A2254CEF900DDD583 /* BookDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailsViewModelTests.swift; sourceTree = "<group>"; };
 		EB3A396C2254CEF900DDD583 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB3A39762254D38400DDD583 /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
 		EB3A39792254D41100DDD583 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -69,6 +94,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A9D3DABF22E2FD3F00D19106 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EB3A394F2254CEF700DDD583 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -108,11 +140,22 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A9D3DAC322E2FD3F00D19106 /* BookGoogleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				A9D3DAC422E2FD3F00D19106 /* BookGoogleUITests.swift */,
+				A9D3DAC622E2FD3F00D19106 /* Info.plist */,
+			);
+			path = BookGoogleUITests;
+			sourceTree = "<group>";
+		};
 		EB3A39492254CEF700DDD583 = {
 			isa = PBXGroup;
 			children = (
+				A9D3DAB522E065C200D19106 /* books.json */,
 				EB3A39542254CEF700DDD583 /* BookGoogle */,
 				EB3A39692254CEF900DDD583 /* BookGoogleTests */,
+				A9D3DAC322E2FD3F00D19106 /* BookGoogleUITests */,
 				EB3A39532254CEF700DDD583 /* Products */,
 				7335B9E3C6E7184DB5BC527F /* Pods */,
 				603538295C97D9D6E735561E /* Frameworks */,
@@ -124,6 +167,7 @@
 			children = (
 				EB3A39522254CEF700DDD583 /* BookGoogle.app */,
 				EB3A39662254CEF900DDD583 /* BookGoogleTests.xctest */,
+				A9D3DAC222E2FD3F00D19106 /* BookGoogleUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -149,8 +193,12 @@
 		EB3A39692254CEF900DDD583 /* BookGoogleTests */ = {
 			isa = PBXGroup;
 			children = (
-				EB3A396A2254CEF900DDD583 /* BookGoogleTests.swift */,
+				A9D3DAB022E05F7300D19106 /* Fixtures */,
+				EB3A396A2254CEF900DDD583 /* BookDetailsViewModelTests.swift */,
 				EB3A396C2254CEF900DDD583 /* Info.plist */,
+				A9FE773F22E03E0400DFEBFE /* BookViewModelTests.swift */,
+				A9D3DAAE22E05DA000D19106 /* BookModelTests.swift */,
+				A9D3DAB722E06A8800D19106 /* TestUtils.swift */,
 			);
 			path = BookGoogleTests;
 			sourceTree = "<group>";
@@ -220,6 +268,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A9D3DAC122E2FD3F00D19106 /* BookGoogleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A9D3DAC922E2FD3F00D19106 /* Build configuration list for PBXNativeTarget "BookGoogleUITests" */;
+			buildPhases = (
+				A9D3DABE22E2FD3F00D19106 /* Sources */,
+				A9D3DABF22E2FD3F00D19106 /* Frameworks */,
+				A9D3DAC022E2FD3F00D19106 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A9D3DAC822E2FD3F00D19106 /* PBXTargetDependency */,
+			);
+			name = BookGoogleUITests;
+			productName = BookGoogleUITests;
+			productReference = A9D3DAC222E2FD3F00D19106 /* BookGoogleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		EB3A39512254CEF700DDD583 /* BookGoogle */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EB3A396F2254CEF900DDD583 /* Build configuration list for PBXNativeTarget "BookGoogle" */;
@@ -248,6 +314,7 @@
 				EB3A39622254CEF900DDD583 /* Sources */,
 				EB3A39632254CEF900DDD583 /* Frameworks */,
 				EB3A39642254CEF900DDD583 /* Resources */,
+				7CCABDEAC812EA6C599FB689 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -265,10 +332,14 @@
 		EB3A394A2254CEF700DDD583 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = Miguel;
 				TargetAttributes = {
+					A9D3DAC122E2FD3F00D19106 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = EB3A39512254CEF700DDD583;
+					};
 					EB3A39512254CEF700DDD583 = {
 						CreatedOnToolsVersion = 10.1;
 					};
@@ -293,11 +364,19 @@
 			targets = (
 				EB3A39512254CEF700DDD583 /* BookGoogle */,
 				EB3A39652254CEF900DDD583 /* BookGoogleTests */,
+				A9D3DAC122E2FD3F00D19106 /* BookGoogleUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A9D3DAC022E2FD3F00D19106 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EB3A39502254CEF700DDD583 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -311,6 +390,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9D3DAB122E05F7300D19106 /* Fixtures in Resources */,
+				A9D3DAB622E065C200D19106 /* books.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,38 +426,32 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-BookGoogle/Pods-BookGoogle-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-BookGoogle/Pods-BookGoogle-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-BookGoogle/Pods-BookGoogle-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BookGoogle/Pods-BookGoogle-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BookGoogle/Pods-BookGoogle-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7CCABDEAC812EA6C599FB689 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BookGoogleTests/Pods-BookGoogleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BookGoogleTests/Pods-BookGoogleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BookGoogleTests/Pods-BookGoogleTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EBE6B66E22587896009D747C /* ShellScript */ = {
@@ -421,6 +496,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A9D3DABE22E2FD3F00D19106 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9D3DAC522E2FD3F00D19106 /* BookGoogleUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EB3A394E2254CEF700DDD583 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -446,13 +529,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB3A396B2254CEF900DDD583 /* BookGoogleTests.swift in Sources */,
+				A9D3DAAD22E05BDD00D19106 /* BookModel.swift in Sources */,
+				EB3A396B2254CEF900DDD583 /* BookDetailsViewModelTests.swift in Sources */,
+				A9D3DAB922E1FD6800D19106 /* BookDetailsViewModel.swift in Sources */,
+				A9FE774022E03E0400DFEBFE /* BookViewModelTests.swift in Sources */,
+				A9D3DAAC22E05AA800D19106 /* APIService.swift in Sources */,
+				A9D3DAB822E06A8800D19106 /* TestUtils.swift in Sources */,
+				A9D3DAAF22E05DA000D19106 /* BookModelTests.swift in Sources */,
+				A9D3DAAB22E0599D00D19106 /* BookViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		A9D3DAC822E2FD3F00D19106 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EB3A39512254CEF700DDD583 /* BookGoogle */;
+			targetProxy = A9D3DAC722E2FD3F00D19106 /* PBXContainerItemProxy */;
+		};
 		EB3A39682254CEF900DDD583 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EB3A39512254CEF700DDD583 /* BookGoogle */;
@@ -472,6 +567,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		A9D3DACA22E2FD3F00D19106 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LU8T45JT2D;
+				INFOPLIST_FILE = BookGoogleUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = miguelrrc.BookGoogleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = BookGoogle;
+			};
+			name = Debug;
+		};
+		A9D3DACB22E2FD3F00D19106 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LU8T45JT2D;
+				INFOPLIST_FILE = BookGoogleUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = miguelrrc.BookGoogleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = BookGoogle;
+			};
+			name = Release;
+		};
 		EB3A396D2254CEF900DDD583 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -695,6 +830,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A9D3DAC922E2FD3F00D19106 /* Build configuration list for PBXNativeTarget "BookGoogleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A9D3DACA22E2FD3F00D19106 /* Debug */,
+				A9D3DACB22E2FD3F00D19106 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		EB3A394D2254CEF700DDD583 /* Build configuration list for PBXProject "BookGoogle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 
 struct BookModel {
-  typealias T = [BookModel]
+  typealias Models = [BookModel]
   var title: String?
   var authors: [String]?
   var subtitle: String?
@@ -39,7 +39,7 @@ struct BookModel {
     self.thumbnail = thumbnail
   }
 
-  static func parse(fromJSON json: JSON) -> T {
+  static func parse(fromJSON json: JSON) -> Models {
     var books = [BookModel]()
     guard let items = json["items"].array else { return books }
     for item in items {
@@ -54,4 +54,8 @@ struct BookModel {
     }
     return books
   }
+}
+
+extension BookModel: Equatable {
+    
 }

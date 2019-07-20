@@ -18,6 +18,8 @@ target 'BookGoogle' do
   target 'BookGoogleTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'RxTest'
+    pod 'RxBlocking'
   end
 
 end

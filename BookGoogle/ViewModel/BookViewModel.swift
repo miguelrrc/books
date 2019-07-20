@@ -28,7 +28,7 @@ class BookViewModel: UIViewModelType {
   let input: Input
   let output: Output
 
-  private let api: APIServiceProtocol.Type
+  private let api: APIServiceProtocol
   private let disposeBag = DisposeBag()
   private var page = 0
   private let itemsPerPage = 40
@@ -37,8 +37,8 @@ class BookViewModel: UIViewModelType {
   private let searchSubject = PublishSubject<Void>()
 
   struct Input {
-    let searchText: AnyObserver<String>
-    let search: AnyObserver<Void>
+    let searchText: ReplaySubject<String>
+    let search: PublishSubject<Void>
     var nextPage: AnyObserver<Void>
   }
 
@@ -46,8 +46,8 @@ class BookViewModel: UIViewModelType {
     var books: Driver<[BookTableViewCellType]>
   }
 
-  init(api: APIServiceProtocol.Type = APIService.self) {
-    self.api = APIService.self
+  init(apiInit: APIServiceProtocol = APIService()) {
+    self.api = apiInit
     let booksRelay: BehaviorRelay<[BookTableViewCellType]> = BehaviorRelay.init(value: [])
 
     self.input = Input(
@@ -64,7 +64,15 @@ class BookViewModel: UIViewModelType {
           return Observable.just([])
         }
         strongSelf.page = 0
-        return api.findBooks(with: text, maxResults: strongSelf.itemsPerPage, page: strongSelf.page)
+        let results = strongSelf.api.findBooks(with: text, maxResults: strongSelf.itemsPerPage, page: strongSelf.page)
+        switch results {
+        case .success(payload: let payload):
+            return payload
+        case .failure(let error):
+            print(error ?? "error")
+            return Observable.just([])
+        }
+//        return strongSelf.api.findBooks(with: text, maxResults: strongSelf.itemsPerPage, page: strongSelf.page)
     }
 
     let resultNextPage = nextPageSubject
@@ -74,16 +82,32 @@ class BookViewModel: UIViewModelType {
           return Observable.just([])
         }
         strongSelf.page += 1
-        return api.findBooks(with: text, maxResults: strongSelf.itemsPerPage, page: strongSelf.page)
+        let results = strongSelf.api.findBooks(with: text, maxResults: strongSelf.itemsPerPage, page: strongSelf.page)
+        switch results {
+        case .success(payload: let payload):
+            return payload
+        case .failure(let error):
+            print(error ?? "error")
+            return Observable.just([])
+        }
     }
 
     resultsFirstPage.subscribe(onNext: { (newBooks) in
-      let books: [BookTableViewCellType] = newBooks.compactMap { .normal(cellViewModel: $0 as BookModel)}
-       booksRelay.accept(books)
+        if newBooks.count == 0 {
+            booksRelay.accept( [BookTableViewCellType.empty])
+        } else {
+            let books: [BookTableViewCellType] = newBooks.compactMap { .normal(cellViewModel: $0 as BookModel)}
+            booksRelay.accept(books)
+        }
     }).disposed(by: disposeBag)
     resultNextPage.subscribe(onNext: { (newBooks) in
-      let books: [BookTableViewCellType] = newBooks.compactMap { .normal(cellViewModel: $0 as BookModel)}
-      booksRelay.accept(booksRelay.value + books)
+        if newBooks.count == 0 {
+            booksRelay.accept( [BookTableViewCellType.empty])
+        } else {
+            let books: [BookTableViewCellType] = newBooks.compactMap { .normal(cellViewModel: $0 as BookModel)}
+            booksRelay.accept(booksRelay.value + books)
+        }
+    
     }).disposed(by: disposeBag)
   }
 }
