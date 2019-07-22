@@ -81,11 +81,8 @@ class BookTableViewController: UIViewController {
         .subscribe()
         .disposed(by: disposeBag)
 
-    searchBar.rx.textDidEndEditing.bind(to: viewModel.input.search).disposed(by: disposeBag)
+    searchBar.rx.searchButtonClicked.bind(to: viewModel.input.search).disposed(by: disposeBag)
     searchBar.rx.text.orEmpty.bind(to: viewModel.input.searchText).disposed(by: disposeBag)
-
-    searchBar.rx.textDidEndEditing.bind(to: viewModel.input.search).disposed(by: disposeBag)
-
     tableView.rxReachedBottom.bind(to: viewModel.input.nextPage).disposed(by: disposeBag)
 
     self.dataSource()

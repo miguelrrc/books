@@ -68,4 +68,19 @@ class BookGoogleUITests: XCTestCase {
     app.navigationBars.buttons.element(boundBy: 0).tap()
     XCTAssert(tables.cells.count > 1)
   }
+
+  func testGoBackFromDetailsToListAfterClearingSearchShouldKeepData() {
+    let tables = app.tables
+    tables.searchFields["Books and more books!"].tap()
+    tables.searchFields["Books and more books!"].typeText("Games")
+    app.keyboards.buttons["Search"].tap()
+    XCTAssert(!indicator.waitForExistence(timeout: 5))
+    tables.searchFields["Books and more books!"].tap()
+    tables.buttons["Clear text"].tap()
+    tables.cells.element(boundBy: 0).tap()
+    //Moving to next view controller
+    XCTAssert(app.collectionViews.count > 0)
+    app.navigationBars.buttons.element(boundBy: 0).tap()
+    XCTAssert(tables.cells.count > 1)
+  }
 }
