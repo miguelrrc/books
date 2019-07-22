@@ -58,16 +58,27 @@ class BookViewModel: UIViewModelType {
       nextPage: nextPageSubject.asObserver())
     self.output = Output(
       books: booksRelay.asDriver(onErrorJustReturn: []), loadInProgress: showLoadingIndicator.asObservable().distinctUntilChanged())
-    let resultsFirstPage = searchSubject
+    let results = searchSubject
       .withLatestFrom(searchTextSubject)
       .distinctUntilChanged()
+      .flatMapLatest { searchText in
+        return self.nextPageSubject.asObservable()
+          .startWith(())
+          .scan(0) { (pageNumber, _) -> Int in
+            pageNumber + 1
+          }
+          .map { pageNumber in
+            (searchText, pageNumber)
+        }
+      }
       .flatMap { [weak self] text -> Observable<[BookModel]> in
         guard let strongSelf = self else {
           return Observable.just([])
         }
+
         strongSelf.showLoadingIndicator.accept(true)
-        strongSelf.page = 0
-        let results = strongSelf.api.findBooks(with: text, maxResults: strongSelf.itemsPerPage, page: strongSelf.page)
+        strongSelf.page = text.1 - 1
+        let results = strongSelf.api.findBooks(with: text.0, maxResults: strongSelf.itemsPerPage, page: strongSelf.page)
         switch results {
         case .success(payload: let payload):
             return payload
@@ -77,39 +88,15 @@ class BookViewModel: UIViewModelType {
         }
     }
 
-    let resultNextPage = nextPageSubject
-      .withLatestFrom(searchTextSubject)
-      .flatMapLatest { [weak self] text -> Observable<[BookModel]> in
-        guard let strongSelf = self else {
-          return Observable.just([])
-        }
-        strongSelf.page += 1
-        let results = strongSelf.api.findBooks(with: text, maxResults: strongSelf.itemsPerPage, page: strongSelf.page)
-        switch results {
-        case .success(payload: let payload):
-            return payload
-        case .failure(let error):
-            print(error ?? "error")
-            return Observable.just([])
-        }
-    }
-
-    resultsFirstPage
+    results
       .subscribe(onNext: { (newBooks) in
+        self.showLoadingIndicator.accept(false)
         if newBooks.count == 0 {
             booksRelay.accept( [BookTableViewCellType.empty])
         } else {
            let books: [BookTableViewCellType] = newBooks.compactMap { .normal(cellViewModel: $0 as BookModel)}
-            booksRelay.accept(books)
+          self.page > 0 ? booksRelay.accept(booksRelay.value + books) : booksRelay.accept(books)
            self.showLoadingIndicator.accept(false)
-        }
-    }).disposed(by: disposeBag)
-    resultNextPage.subscribe(onNext: { (newBooks) in
-        if newBooks.count == 0 {
-            booksRelay.accept( [BookTableViewCellType.empty])
-        } else {
-            let books: [BookTableViewCellType] = newBooks.compactMap { .normal(cellViewModel: $0 as BookModel)}
-            booksRelay.accept(booksRelay.value + books)
         }
     }).disposed(by: disposeBag)
   }
