@@ -15,6 +15,7 @@ class InfoCollectionViewCell: UICollectionViewCell {
 
   var infoBook: InfoBook? {
     didSet {
+      titleLabel.accessibilityIdentifier = "titleLabel"
       titleLabel.text = infoBook?.title
       subtitleLabel.text = infoBook?.subtitle
       authorsLabel.text = infoBook?.authors.joined(separator: "-")

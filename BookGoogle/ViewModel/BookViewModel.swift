@@ -32,6 +32,7 @@ class BookViewModel: UIViewModelType {
   private let disposeBag = DisposeBag()
   private var page = 0
   private let itemsPerPage = 40
+  private let showLoadingIndicator = BehaviorRelay<Bool>.init(value: false)
   private let searchTextSubject = ReplaySubject<String>.create(bufferSize: 1)
   private let nextPageSubject = PublishSubject<Void>()
   private let searchSubject = PublishSubject<Void>()
@@ -44,6 +45,7 @@ class BookViewModel: UIViewModelType {
 
   struct Output {
     var books: Driver<[BookTableViewCellType]>
+    let loadInProgress: Observable<Bool>
   }
 
   init(apiInit: APIServiceProtocol = APIService()) {
@@ -54,8 +56,8 @@ class BookViewModel: UIViewModelType {
       searchText: searchTextSubject.asObserver(),
       search: searchSubject.asObserver(),
       nextPage: nextPageSubject.asObserver())
-    self.output = Output(books: booksRelay.asDriver(onErrorJustReturn: []))
-
+    self.output = Output(
+      books: booksRelay.asDriver(onErrorJustReturn: []), loadInProgress: showLoadingIndicator.asObservable().distinctUntilChanged())
     let resultsFirstPage = searchSubject
       .withLatestFrom(searchTextSubject)
       .distinctUntilChanged()
@@ -63,6 +65,7 @@ class BookViewModel: UIViewModelType {
         guard let strongSelf = self else {
           return Observable.just([])
         }
+        strongSelf.showLoadingIndicator.accept(true)
         strongSelf.page = 0
         let results = strongSelf.api.findBooks(with: text, maxResults: strongSelf.itemsPerPage, page: strongSelf.page)
         switch results {
@@ -72,7 +75,6 @@ class BookViewModel: UIViewModelType {
             print(error ?? "error")
             return Observable.just([])
         }
-//        return strongSelf.api.findBooks(with: text, maxResults: strongSelf.itemsPerPage, page: strongSelf.page)
     }
 
     let resultNextPage = nextPageSubject
@@ -92,12 +94,14 @@ class BookViewModel: UIViewModelType {
         }
     }
 
-    resultsFirstPage.subscribe(onNext: { (newBooks) in
+    resultsFirstPage
+      .subscribe(onNext: { (newBooks) in
         if newBooks.count == 0 {
             booksRelay.accept( [BookTableViewCellType.empty])
         } else {
-            let books: [BookTableViewCellType] = newBooks.compactMap { .normal(cellViewModel: $0 as BookModel)}
+           let books: [BookTableViewCellType] = newBooks.compactMap { .normal(cellViewModel: $0 as BookModel)}
             booksRelay.accept(books)
+           self.showLoadingIndicator.accept(false)
         }
     }).disposed(by: disposeBag)
     resultNextPage.subscribe(onNext: { (newBooks) in
@@ -107,7 +111,6 @@ class BookViewModel: UIViewModelType {
             let books: [BookTableViewCellType] = newBooks.compactMap { .normal(cellViewModel: $0 as BookModel)}
             booksRelay.accept(booksRelay.value + books)
         }
-    
     }).disposed(by: disposeBag)
   }
 }
